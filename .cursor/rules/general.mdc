@@ -6,23 +6,44 @@ alwaysApply: true
 
 # プロジェクト概要
 
-このプロジェクトはFigmaデザインをWordPressブロックテーマとして実装するプロジェクトです。
+> **重要**: このプロジェクトは「ルール・ワークフロー・テンプレートを作成するためのプロジェクト」です。
+> 実際の案件プロジェクトではありません。
+
+## 目的
+- Figma → WordPress のコーディング案件を効率的に進めるためのルールを整備
+- Cursor（AI）との協業ルールを確立
+- 再利用可能なテンプレートを作成
+
+## 役割分担
+- **デザイナー**: Figmaでデザイン作成（別の方）
+- **自分**: コーディング（WordPress実装）
+- **AI（Cursor）**: コーディング支援、SCSS/jQueryの実装、コンパイル実行
 
 ## コミュニケーション
 - 日本語で応答してください
 - 実装の意図や理由を説明してください
 - 不明点があれば確認してください
+- デザインに曖昧な部分があれば、想定で進めず確認を促してください
 
-## 開発環境
-- WordPress: Docker (wp-env) またはクラウドホスティング
-- MCP: Figma MCP + GitHub MCP
-- エディタ: Cursor
+## 技術スタック
+- **WordPress**: ブロックテーマ（FSE）
+- **CSS**: SCSS（プリプロセッサ）
+- **JavaScript**: jQuery OK
+- **開発環境**: Docker
+- **MCP**: Figma MCP
+- **エディタ**: Cursor
 
 ## 品質基準
 - アクセシビリティ（WCAG 2.1 AA準拠）
 - パフォーマンス（Core Web Vitals考慮）
 - SEO最適化
 - モバイルファースト
+
+## デザイナーとの連携ルール
+- Figmaデザインは変更しない（参照のみ）
+- デザインの意図を尊重する
+- 実装上の都合で変更が必要な場合は、理由を説明してユーザーに確認
+- デザインに曖昧な部分があれば、想定で進めず確認を促す
 
 ## Git運用
 - 機能ごとにブランチを切る
@@ -31,4 +52,4 @@ alwaysApply: true
 
 ## ファイル命名規則
 - ケバブケース（kebab-case）を使用
-- 例: `header-main.html`, `hero-section.html`
+- 例: `header-main.html`, `hero-section.html`, `_hero-section.scss`

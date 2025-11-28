@@ -1,9 +1,9 @@
 /*
-Theme Name: Figma WordPress Theme
-Theme URI: https://github.com/YOUR_USERNAME/figma-wordpress-project
+Theme Name: Figma WordPress Theme (Template)
+Theme URI: https://github.com/jKai-Hw/figma-wordpress-project
 Author: Your Name
 Author URI: https://yourwebsite.com
-Description: FigmaデザインをベースにしたWordPressブロックテーマ
+Description: 【テンプレート】FigmaデザインをベースにしたWordPressブロックテーマ。実際の案件ではテーマ名等を変更してください。
 Requires at least: 6.0
 Tested up to: 6.4
 Requires PHP: 8.0
@@ -13,6 +13,11 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: figma-theme
 Tags: full-site-editing, block-patterns, custom-colors, custom-menu
 
-FigmaデザインをMCPで取り込み、WordPressブロックテーマとして実装したテーマです。
-*/
+このテーマはルール・ワークフロー作成用のテンプレートです。
+実際の案件では、このテーマをベースにカスタマイズしてください。
 
+技術スタック:
+- WordPress ブロックテーマ（FSE）
+- SCSS（プリプロセッサ）
+- jQuery
+*/

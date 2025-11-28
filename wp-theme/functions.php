@@ -1,6 +1,8 @@
 <?php
 /**
  * Figma WordPress Theme functions and definitions
+ * 
+ * 【テンプレート】実際の案件では必要に応じてカスタマイズしてください
  *
  * @package Figma_Theme
  */
@@ -43,7 +45,7 @@ function figma_theme_setup() {
 
     // ブロックエディタースタイル
     add_theme_support( 'editor-styles' );
-    add_editor_style( 'assets/css/editor-style.css' );
+    add_editor_style( 'assets/css/style.css' );
 
     // レスポンシブ埋め込み
     add_theme_support( 'responsive-embeds' );
@@ -57,7 +59,10 @@ add_action( 'after_setup_theme', 'figma_theme_setup' );
  * スタイルとスクリプトの読み込み
  */
 function figma_theme_scripts() {
+    $theme_version = wp_get_theme()->get( 'Version' );
+
     // Google Fonts - Noto Sans JP
+    // 実際の案件ではFigmaのデザインに合わせてフォントを変更
     wp_enqueue_style(
         'figma-theme-fonts',
         'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap',
@@ -65,31 +70,34 @@ function figma_theme_scripts() {
         null
     );
 
-    // メインスタイル
+    // メインスタイル（テーマ情報用）
     wp_enqueue_style(
         'figma-theme-style',
         get_stylesheet_uri(),
         array( 'figma-theme-fonts' ),
-        wp_get_theme()->get( 'Version' )
+        $theme_version
     );
 
-    // カスタムスタイル
-    if ( file_exists( get_template_directory() . '/assets/css/custom.css' ) ) {
+    // SCSSからコンパイルしたカスタムスタイル
+    if ( file_exists( get_template_directory() . '/assets/css/style.css' ) ) {
         wp_enqueue_style(
             'figma-theme-custom',
-            get_template_directory_uri() . '/assets/css/custom.css',
+            get_template_directory_uri() . '/assets/css/style.css',
             array( 'figma-theme-style' ),
-            wp_get_theme()->get( 'Version' )
+            $theme_version
         );
     }
 
-    // カスタムスクリプト
-    if ( file_exists( get_template_directory() . '/assets/js/custom.js' ) ) {
+    // jQuery（WordPress同梱版を使用）
+    wp_enqueue_script( 'jquery' );
+
+    // カスタムスクリプト（jQuery依存）
+    if ( file_exists( get_template_directory() . '/assets/js/main.js' ) ) {
         wp_enqueue_script(
-            'figma-theme-custom',
-            get_template_directory_uri() . '/assets/js/custom.js',
-            array(),
-            wp_get_theme()->get( 'Version' ),
+            'figma-theme-main',
+            get_template_directory_uri() . '/assets/js/main.js',
+            array( 'jquery' ),
+            $theme_version,
             true
         );
     }
@@ -98,6 +106,7 @@ add_action( 'wp_enqueue_scripts', 'figma_theme_scripts' );
 
 /**
  * ブロックパターンカテゴリの登録
+ * 実際の案件では必要なカテゴリを追加・変更
  */
 function figma_theme_register_pattern_categories() {
     register_block_pattern_category(
@@ -114,6 +123,20 @@ function figma_theme_register_pattern_categories() {
         'figma-theme-cta',
         array( 'label' => __( 'Call to Action', 'figma-theme' ) )
     );
+
+    register_block_pattern_category(
+        'figma-theme-testimonials',
+        array( 'label' => __( 'Testimonials', 'figma-theme' ) )
+    );
+
+    register_block_pattern_category(
+        'figma-theme-pricing',
+        array( 'label' => __( 'Pricing', 'figma-theme' ) )
+    );
+
+    register_block_pattern_category(
+        'figma-theme-contact',
+        array( 'label' => __( 'Contact', 'figma-theme' ) )
+    );
 }
 add_action( 'init', 'figma_theme_register_pattern_categories' );
-

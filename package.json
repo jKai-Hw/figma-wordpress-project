@@ -1,0 +1,22 @@
+{
+  "name": "figma-wordpress-project",
+  "version": "1.0.0",
+  "description": "Figma → WordPress コーディング用のルール・テンプレートプロジェクト",
+  "scripts": {
+    "build:css": "sass wp-theme/assets/scss/style.scss wp-theme/assets/css/style.css --style=compressed",
+    "watch:css": "sass wp-theme/assets/scss/style.scss wp-theme/assets/css/style.css --watch",
+    "dev": "sass wp-theme/assets/scss/style.scss wp-theme/assets/css/style.css --watch --style=expanded"
+  },
+  "devDependencies": {
+    "sass": "^1.69.0"
+  },
+  "keywords": [
+    "wordpress",
+    "figma",
+    "scss",
+    "block-theme"
+  ],
+  "author": "",
+  "license": "GPL-2.0-or-later"
+}
+

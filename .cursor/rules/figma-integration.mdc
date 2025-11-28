@@ -6,50 +6,105 @@ alwaysApply: true
 
 # Figma MCP連携ガイドライン
 
+> このファイルはテンプレートです。Figma MCPを使ってデザインを実装する際のルールです。
+
+## 前提
+- デザインは別のデザイナーさんが作成
+- 自分はコーディング担当
+- Figmaデザインは変更しない（参照のみ）
+
+## ワークフロー
+
+### Step 1: 全体構造の把握
+ページ全体のFigma URLを受け取ったら：
+1. MCPでデザイン情報を取得
+2. セクション構成をリストアップ
+3. 共通コンポーネントを洗い出し
+4. デザイントークン（カラー、フォント、余白）を抽出
+
+### Step 2: ベース構築
+1. SCSS変数ファイル（_variables.scss）を作成
+2. theme.jsonにWordPress用設定を反映
+3. 共通コンポーネントのSCSSを作成
+
+### Step 3: セクション実装
+セクションごとにFigma URLを受け取り：
+1. HTMLマークアップ作成（patterns/）
+2. SCSSでスタイリング
+3. 必要に応じてjQueryでインタラクション
+4. レスポンシブ確認
+
 ## FigmaデザインURLの扱い方
 - Figmaのフレーム/コンポーネントのURLを受け取ったら、MCPを通じてデザイン情報を取得
 - デザインの構造、色、フォント、余白などを正確に読み取る
+- 不明点があれば実装前に確認を促す
 
 ## デザイントークンの変換
-Figmaのデザイントークンは以下のようにWordPressに変換：
 
-### カラー
+### カラー → SCSS変数 + theme.json
+```scss
+// _variables.scss
+$color-primary: #3B82F6;    // Figmaから抽出
+$color-secondary: #10B981;
+```
+
 ```json
 // theme.json
 {
   "settings": {
     "color": {
       "palette": [
-        { "slug": "primary", "color": "#Figmaの色", "name": "Primary" }
+        { "slug": "primary", "color": "#3B82F6", "name": "Primary" },
+        { "slug": "secondary", "color": "#10B981", "name": "Secondary" }
       ]
     }
   }
 }
 ```
 
-### タイポグラフィ
+### タイポグラフィ → SCSS変数 + theme.json
+```scss
+// _variables.scss
+$font-family-base: 'Noto Sans JP', sans-serif;
+$font-size-base: 1rem;      // 16px
+$font-size-lg: 1.25rem;     // 20px
+$line-height-base: 1.75;
+```
+
 ```json
+// theme.json
 {
   "settings": {
     "typography": {
       "fontFamilies": [
-        { "fontFamily": "Figmaのフォント", "slug": "heading", "name": "Heading" }
+        { "fontFamily": "'Noto Sans JP', sans-serif", "slug": "body", "name": "Body" }
       ],
       "fontSizes": [
-        { "slug": "small", "size": "14px", "name": "Small" }
+        { "slug": "medium", "size": "1rem", "name": "Medium" },
+        { "slug": "large", "size": "1.25rem", "name": "Large" }
       ]
     }
   }
 }
 ```
 
-### スペーシング
+### スペーシング → SCSS変数 + theme.json
+```scss
+// _variables.scss
+$spacing-sm: 1rem;    // 16px
+$spacing-md: 1.5rem;  // 24px
+$spacing-lg: 2rem;    // 32px
+```
+
 ```json
+// theme.json
 {
   "settings": {
     "spacing": {
       "spacingSizes": [
-        { "slug": "10", "size": "8px", "name": "1" }
+        { "slug": "20", "size": "1rem", "name": "Small" },
+        { "slug": "30", "size": "1.5rem", "name": "Medium" },
+        { "slug": "40", "size": "2rem", "name": "Large" }
       ]
     }
   }
@@ -57,14 +112,25 @@ Figmaのデザイントークンは以下のようにWordPressに変換：
 ```
 
 ## 実装優先順位
-1. グローバルスタイル（theme.json）
-2. ヘッダー/フッター（parts/）
-3. 共通パターン（patterns/）
-4. 個別テンプレート（templates/）
+1. デザイントークン抽出・変数定義
+2. グローバルスタイル（theme.json + _base.scss）
+3. ヘッダー/フッター（parts/）
+4. 共通コンポーネント（components/）
+5. セクション/パターン（patterns/）
+6. 個別テンプレート（templates/）
 
 ## 品質チェックリスト
 - [ ] Figmaデザインとの色の一致
 - [ ] フォントサイズ・行間の一致
 - [ ] 余白・マージンの一致
-- [ ] レスポンシブ対応
-- [ ] アクセシビリティ対応
+- [ ] レスポンシブ対応（SP / タブレット / PC）
+- [ ] アクセシビリティ対応（alt、aria-label等）
+- [ ] ホバー・フォーカス状態の実装
+- [ ] アニメーション・トランジションの実装（指定があれば）
+
+## デザイナーへの確認が必要なケース
+以下の場合は、実装前にユーザーに確認を促す：
+- デザインに曖昧な部分がある
+- レスポンシブ時の挙動が不明
+- ホバー状態のデザインがない
+- 実装上の都合でデザインの調整が必要

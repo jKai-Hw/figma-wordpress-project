@@ -8,13 +8,14 @@
 ## 📌 プロジェクト概要
 
 ### 目的
-- Figma MCPを活用して、FigmaデザインをWordPressブロックテーマとして効率的に構築する
-- 仕事を始めるにあたって、しっかりしたルール・型を最初に作る
+- **ルール・ワークフロー・テンプレートを作成するためのプロジェクト**
+- Figma MCPを活用して、FigmaデザインをWordPressブロックテーマとして効率的に構築する型を作る
+- 実際の案件プロジェクトではない
 
 ### 役割分担
-- **デザイナーさん**: Figmaでデザイン作成
+- **デザイナーさん**: Figmaでデザイン作成（別の方）
 - **自分**: コーディング（WordPress実装）
-- **AI（Cursor）**: コーディング支援、SCSS/jQueryの実装
+- **AI（Cursor）**: コーディング支援、SCSS/jQueryの実装、コンパイル実行
 
 ### 技術スタック
 - WordPress（ブロックテーマ / FSE）
@@ -81,9 +82,9 @@ wp-theme/
 │   │   │   ├── _header.scss
 │   │   │   ├── _footer.scss
 │   │   │   └── _hero.scss
-│   │   └── style.scss           # メインファイル（import）
+│   │   └── style.scss           # メインファイル（@use で読み込み）
 │   ├── css/
-│   │   └── style.css            # コンパイル後のCSS
+│   │   └── style.css            # コンパイル後のCSS（Git管理）
 │   ├── js/
 │   │   └── main.js              # カスタムJS（jQuery使用）
 │   └── images/
@@ -116,10 +117,9 @@ wp-theme/
 | 項目 | 決定内容 |
 |------|----------|
 | CSS | SCSS を使用 |
-| JavaScript | jQuery OK |
+| JavaScript | jQuery OK（WordPress同梱版を使用） |
 | 開発環境 | Docker（ローカル） |
 | SCSSコンパイル | AI（Cursor）が実行 |
-| jQueryの読み込み | AIにお任せ（WordPress同梱推奨） |
 | Figmaの渡し方 | ハイブリッド（全体→セクション） |
 
 ---
@@ -129,15 +129,13 @@ wp-theme/
 ### ルール作成（未完了）
 以下のルールを詳細に詰める必要あり：
 
-- [ ] **1. ワークフロー詳細** - 案件の進め方、フェーズ分け
-- [ ] **2. Figma連携ルール** - デザインの受け取り方、確認ポイント
-- [ ] **3. WordPress開発ルール** - テーマ構造、ファイル命名規則
-- [ ] **4. SCSS設計ルール** - ディレクトリ構成、命名規則、変数管理
-- [ ] **5. JavaScript/jQueryルール** - 書き方、ファイル構成
-- [ ] **6. コーディング規約** - インデント、命名、コメントなど
-- [ ] **7. レスポンシブ対応ルール** - ブレークポイント、アプローチ
-- [ ] **8. 品質チェックリスト** - 納品前の確認リスト
-- [ ] **9. Git運用ルール** - コミット、ブランチルール
+- [x] ~~基本的なワークフロー~~ → 決定済み
+- [x] ~~SCSS設計ルール~~ → テンプレート作成済み
+- [x] ~~JavaScript/jQueryルール~~ → テンプレート作成済み
+- [ ] **詳細なコーディング規約** - インデント、命名、コメントなど
+- [ ] **レスポンシブ対応ルール詳細** - 具体的な実装方針
+- [ ] **品質チェックリスト** - 納品前の確認リスト
+- [ ] **Git運用ルール詳細** - コミット、ブランチルール
 
 ### 確認したい質問（次回回答）
 1. 対象案件のイメージ（コーポレート？LP？EC？規模感は？）
@@ -152,13 +150,36 @@ wp-theme/
 ### 完了
 - [x] GitHubリポジトリ作成: https://github.com/jKai-Hw/figma-wordpress-project
 - [x] プロジェクト基本構造作成
-- [x] Cursor Rules（基本版）作成
+- [x] Cursor Rules作成（general, wordpress-theme, figma-integration）
 - [x] Docker Compose設定ファイル作成
+- [x] SCSS基本ファイル作成（_variables, _mixins, style.scss）
+- [x] package.json作成（SCSSビルド用）
+- [x] main.js作成（jQueryテンプレート）
 
 ### 未完了
 - [ ] Figma MCP設定（APIトークン取得後）
-- [ ] ビルド環境設定（package.json など）
-- [ ] SCSS基本ファイル作成
+- [ ] npm install（実際の開発開始時）
+
+---
+
+## 🛠️ 開発コマンド
+
+```bash
+# 依存関係インストール
+npm install
+
+# SCSSコンパイル（本番用・圧縮）
+npm run build:css
+
+# SCSS監視モード（開発用）
+npm run watch:css
+
+# Docker起動
+docker-compose up -d
+
+# Docker停止
+docker-compose down
+```
 
 ---
 
@@ -175,4 +196,4 @@ wp-theme/
 - Figma APIトークンは後で設定する
 - Docker環境は計画段階では起動しない（実装フェーズで起動）
 - デザイナーさんが作ったFigmaを変更しない（参照のみ）
-
+- このプロジェクトは「型」を作るためのもの。実際の案件ではこれをベースにする

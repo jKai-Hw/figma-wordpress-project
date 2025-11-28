@@ -1,4 +1,11 @@
-version: '3.8'
+# ==========================================================================
+# Docker Compose設定（テンプレート）
+# ==========================================================================
+# 実際の案件ではコンテナ名やポートを必要に応じて変更してください
+#
+# 起動: docker-compose up -d
+# 停止: docker-compose down
+# ログ: docker-compose logs -f wordpress
 
 services:
   wordpress:
@@ -35,12 +42,13 @@ services:
     networks:
       - wp-network
 
+  # phpMyAdmin（データベース管理用・オプション）
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: figma-wp-pma
     restart: unless-stopped
     ports:
-      - "8081:80"
+      - "8082:80"
     environment:
       PMA_HOST: db
       PMA_USER: wordpress
@@ -57,4 +65,3 @@ volumes:
 networks:
   wp-network:
     driver: bridge
-

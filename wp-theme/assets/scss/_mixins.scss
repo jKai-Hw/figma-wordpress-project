@@ -1,0 +1,189 @@
+// ==========================================================================
+// ミックスイン（テンプレート）
+// ==========================================================================
+@use 'variables' as *;
+
+// --------------------------------------------------------------------------
+// メディアクエリ
+// --------------------------------------------------------------------------
+
+// スマホ（〜767px）
+@mixin sp {
+  @media (max-width: #{$breakpoint-md - 1px}) {
+    @content;
+  }
+}
+
+// タブレット（768px〜1023px）
+@mixin tablet {
+  @media (min-width: $breakpoint-md) and (max-width: #{$breakpoint-lg - 1px}) {
+    @content;
+  }
+}
+
+// PC（1024px〜）
+@mixin pc {
+  @media (min-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+// タブレット以上（768px〜）
+@mixin tablet-up {
+  @media (min-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+// カスタムブレークポイント
+@mixin mq($breakpoint) {
+  @media (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin mq-max($breakpoint) {
+  @media (max-width: #{$breakpoint - 1px}) {
+    @content;
+  }
+}
+
+// --------------------------------------------------------------------------
+// レイアウト
+// --------------------------------------------------------------------------
+
+// Flexbox センタリング
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Flexbox 両端揃え
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+// コンテナ
+@mixin container {
+  max-width: $content-width;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $spacing-sm;
+  padding-right: $spacing-sm;
+  
+  @include pc {
+    padding-left: $spacing-md;
+    padding-right: $spacing-md;
+  }
+}
+
+// --------------------------------------------------------------------------
+// タイポグラフィ
+// --------------------------------------------------------------------------
+
+// 見出しスタイル
+@mixin heading-style {
+  font-family: $font-family-heading;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+}
+
+// テキスト省略（1行）
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// テキスト省略（複数行）
+@mixin text-clamp($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// --------------------------------------------------------------------------
+// ボタン
+// --------------------------------------------------------------------------
+
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xs $spacing-md;
+  font-weight: $font-weight-semibold;
+  border-radius: $border-radius-base;
+  transition: all $transition-base;
+  cursor: pointer;
+  text-decoration: none;
+  
+  &:hover {
+    opacity: 0.9;
+  }
+  
+  &:focus {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+}
+
+@mixin button-primary {
+  @include button-base;
+  background-color: $color-primary;
+  color: $color-white;
+  border: none;
+  
+  &:hover {
+    background-color: darken($color-primary, 10%);
+  }
+}
+
+@mixin button-secondary {
+  @include button-base;
+  background-color: transparent;
+  color: $color-primary;
+  border: 2px solid $color-primary;
+  
+  &:hover {
+    background-color: $color-primary;
+    color: $color-white;
+  }
+}
+
+// --------------------------------------------------------------------------
+// その他
+// --------------------------------------------------------------------------
+
+// ホバートランジション
+@mixin hover-transition {
+  transition: all $transition-base;
+}
+
+// シャドウ
+@mixin shadow($level: 'base') {
+  @if $level == 'sm' {
+    box-shadow: $shadow-sm;
+  } @else if $level == 'lg' {
+    box-shadow: $shadow-lg;
+  } @else {
+    box-shadow: $shadow-base;
+  }
+}
+
+// visually hidden（アクセシビリティ用）
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+

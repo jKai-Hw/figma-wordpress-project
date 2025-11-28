@@ -6,56 +6,143 @@ globs:
   - "wp-theme/**/parts/*.html"
   - "wp-theme/**/templates/*.html"
   - "wp-theme/theme.json"
+  - "wp-theme/**/*.scss"
 alwaysApply: true
 ---
 
 # WordPressブロックテーマ開発ガイドライン
 
+> このファイルはテンプレートです。実際の案件では必要に応じてカスタマイズしてください。
+
 ## 基本方針
 - WordPress 6.x以降のフルサイト編集（FSE）対応ブロックテーマを開発
 - Figmaデザインに忠実に実装しつつ、WordPressのベストプラクティスに従う
 - アクセシビリティ（WCAG 2.1 AA準拠）を意識
+- **SCSS** を使用してスタイリング
+- **jQuery** の使用OK
 
 ## ディレクトリ構造
 ```
 wp-theme/
+├── assets/
+│   ├── scss/
+│   │   ├── _variables.scss      # カラー、フォント、スペーシング変数
+│   │   ├── _mixins.scss         # ミックスイン（メディアクエリ等）
+│   │   ├── _reset.scss          # リセットCSS
+│   │   ├── _base.scss           # ベーススタイル
+│   │   ├── _typography.scss     # タイポグラフィ
+│   │   ├── components/          # 共通コンポーネント
+│   │   │   ├── _button.scss
+│   │   │   ├── _card.scss
+│   │   │   └── _navigation.scss
+│   │   ├── sections/            # セクション別スタイル
+│   │   │   ├── _header.scss
+│   │   │   ├── _footer.scss
+│   │   │   └── _hero.scss
+│   │   └── style.scss           # メインファイル（@use で読み込み）
+│   ├── css/
+│   │   └── style.css            # コンパイル後のCSS（Git管理）
+│   ├── js/
+│   │   └── main.js              # カスタムJS（jQuery使用）
+│   └── images/
 ├── parts/          # ヘッダー、フッターなどの再利用パーツ（HTML）
 ├── patterns/       # ブロックパターン（HTML）
 ├── templates/      # ページテンプレート（HTML）
-├── assets/
-│   ├── css/
-│   ├── js/
-│   └── images/
 ├── functions.php
-├── style.css
-└── theme.json
+├── style.css       # テーマ情報（必須）
+└── theme.json      # グローバルスタイル設定
+```
+
+## SCSS設計ルール
+
+### 変数命名規則（_variables.scss）
+```scss
+// カラー
+$color-primary: #3B82F6;
+$color-secondary: #10B981;
+$color-text: #1F2937;
+$color-background: #FFFFFF;
+
+// フォント
+$font-family-base: 'Noto Sans JP', sans-serif;
+$font-family-heading: 'Noto Sans JP', sans-serif;
+
+// フォントサイズ
+$font-size-sm: 0.875rem;
+$font-size-base: 1rem;
+$font-size-lg: 1.25rem;
+$font-size-xl: 1.5rem;
+$font-size-2xl: 2rem;
+
+// スペーシング
+$spacing-xs: 0.5rem;
+$spacing-sm: 1rem;
+$spacing-md: 1.5rem;
+$spacing-lg: 2rem;
+$spacing-xl: 3rem;
+
+// ブレークポイント
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+```
+
+### ミックスイン（_mixins.scss）
+```scss
+// メディアクエリ
+@mixin sp {
+  @media (max-width: #{$breakpoint-md - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: $breakpoint-md) and (max-width: #{$breakpoint-lg - 1px}) {
+    @content;
+  }
+}
+
+@mixin pc {
+  @media (min-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+// よく使うスタイル
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 ```
 
 ## コーディング規約
 - PHPはWordPress Coding Standardsに準拠
+- SCSSはBEM記法を推奨（`.block__element--modifier`）
 - theme.jsonでグローバルスタイルを定義
 - ブロックパターンは再利用可能な単位で分割
-- CSS変数を活用してFigmaのデザイントークンを反映
 
 ## theme.json設定のポイント
 - `settings.color.palette` でFigmaのカラーパレットを定義
 - `settings.typography.fontFamilies` でフォントを定義
 - `settings.spacing.spacingSizes` で余白サイズを定義
 - `styles` でグローバルスタイルを設定
+- SCSS変数と theme.json の値は同期させる
 
 ## Figmaからの実装時の注意点
 - FigmaのAuto Layoutは Flexbox/Grid に変換
-- Figmaのカラースタイルは theme.json の palette に定義
-- Figmaのテキストスタイルは theme.json の typography に定義
+- Figmaのカラースタイルは SCSS変数 + theme.json に定義
+- Figmaのテキストスタイルは SCSS変数 + theme.json に定義
 - 画像は適切なサイズでエクスポートし、WebP形式を優先
 
 ## レスポンシブ対応
 - モバイルファースト設計
 - ブレークポイント:
   - sm: 640px
-  - md: 768px
-  - lg: 1024px
-  - xl: 1280px
+  - md: 768px（タブレット）
+  - lg: 1024px（PC）
+  - xl: 1280px（大画面）
 
 ## ブロックパターンの書き方
 パターンファイルの先頭には以下のコメントを含める：
@@ -71,3 +158,8 @@ wp-theme/
 ...
 <!-- /wp:group -->
 ```
+
+## jQueryの使い方
+- WordPress同梱のjQueryを使用（`wp_enqueue_script`）
+- `jQuery(document).ready()` または `jQuery(function($) { ... })` で初期化
+- 必要最小限の使用に留める
