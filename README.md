@@ -1,4 +1,4 @@
-# Figma WordPress Project
+# Figma → WordPress テンプレートプロジェクト
 
 > ⚠️ **このプロジェクトについて**
 > 
@@ -6,7 +6,15 @@
 > 
 > Figma → WordPress のコーディング案件を効率的に進めるための**ルール・ワークフロー・テンプレートを作成するためのプロジェクト**です。
 > 
-> 実際の案件では、このプロジェクトで作成したルールやテンプレートを活用します。
+> 新しい案件では、このプロジェクトをコピーして使用します。
+
+---
+
+## 🚀 新規案件を始める方はこちら
+
+👉 **[新規案件スタートガイド](docs/QUICK_START.md)**
+
+新しい案件が来た時に、何から始めればいいかをステップバイステップで解説しています。
 
 ---
 
@@ -17,22 +25,20 @@
 3. **テンプレート作成** - 案件ごとに使い回せる基本構造を準備
 4. **ベストプラクティスの蓄積** - 経験を元にルールを改善していく
 
-## 📋 現在のステータス
-
-**計画段階（ルール作成中）**
-
-詳細は [`docs/PROJECT_PLAN.md`](docs/PROJECT_PLAN.md) を参照してください。
-
 ---
 
 ## 🔧 技術スタック
 
-- **WordPress** - ブロックテーマ（FSE）
-- **SCSS** - CSSプリプロセッサ
-- **jQuery** - JavaScript
-- **Docker** - ローカル開発環境
-- **Figma MCP** - デザインデータ連携
-- **Cursor** - AI支援開発
+| 項目 | 技術 |
+|------|------|
+| CMS | WordPress（クラシックテーマ） |
+| CSS | SCSS（npm でコンパイル） |
+| JavaScript | jQuery（WordPress同梱版） |
+| 開発環境 | Docker |
+| デザイン連携 | Figma MCP |
+| エディタ | Cursor（AI支援） |
+
+---
 
 ## 📁 ディレクトリ構造
 
@@ -41,34 +47,46 @@ figma-wordpress-project/
 ├── .cursor/
 │   └── rules/              # Cursor Rules（AI協業ルール）
 ├── docs/
-│   └── PROJECT_PLAN.md     # プロジェクト計画・メモ
-├── wp-theme/               # WordPressテーマ（テンプレート）
-│   ├── parts/              # テンプレートパーツ
-│   ├── patterns/           # ブロックパターン
-│   ├── templates/          # ページテンプレート
-│   ├── assets/             # SCSS/JS/画像
-│   ├── functions.php
-│   ├── style.css
-│   └── theme.json
+│   ├── PROJECT_PLAN.md     # プロジェクト計画・メモ
+│   └── QUICK_START.md      # 新規案件スタートガイド ⭐
+├── wp-theme/               # WordPressテーマ
+│   ├── assets/
+│   │   ├── scss/           # SCSSファイル
+│   │   ├── css/            # コンパイル後のCSS
+│   │   ├── js/             # JavaScript
+│   │   └── images/         # 画像
+│   ├── inc/                # PHP機能ファイル
+│   ├── template-parts/     # 再利用可能なパーツ
+│   ├── header.php          # ヘッダー
+│   ├── footer.php          # フッター
+│   ├── front-page.php      # トップページ
+│   ├── functions.php       # テーマ機能
+│   └── style.css           # テーマ情報
 ├── docker-compose.yml
+├── package.json
 └── README.md
 ```
 
-## 📝 ドキュメント
+---
+
+## 📝 ドキュメント一覧
 
 | ファイル | 内容 |
 |----------|------|
-| [`docs/PROJECT_PLAN.md`](docs/PROJECT_PLAN.md) | プロジェクト計画、決定事項、TODOリスト |
+| [docs/QUICK_START.md](docs/QUICK_START.md) | **新規案件スタートガイド**（まずこれを読む） |
+| [docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md) | プロジェクト計画、決定事項 |
 | `.cursor/rules/*.mdc` | Cursor用のAI協業ルール |
 
-## 🚀 セットアップ（開発時）
+---
+
+## 🛠️ セットアップ
 
 ### 必要なもの
 
 - Docker Desktop
-- Node.js (16以上)
+- Node.js (v16以上)
 - Cursor IDE
-- Figma Personal Access Token
+- Figma Personal Access Token（MCP用）
 
 ### MCP設定
 
@@ -88,33 +106,62 @@ Cursorの設定 (`~/.cursor/mcp.json`) に以下を追加：
 }
 ```
 
-### WordPress環境の起動
+### 開発環境の起動
 
 ```bash
-# Docker Composeで起動
+# 依存関係インストール
+npm install
+
+# Docker起動
 docker-compose up -d
+
+# SCSS監視モード
+npm run watch:css
 
 # WordPressにアクセス
 open http://localhost:8080
 ```
+
+---
 
 ## 🔄 ワークフロー概要
 
 ```
 デザイナー: Figmaでデザイン作成
            ↓
-自分: Figma URLを受け取る
+自分: Figma URLを受け取る → Node IDをメモ
            ↓
-Phase 1: 全体構造を把握（MCP）
+Phase 1: スタイルガイドから変数生成（MCP）
            ↓
-Phase 2: ベース構築（SCSS変数、theme.json）
+Phase 2: セクションごとに実装（MCP）
            ↓
-Phase 3: セクションごとに実装
+Phase 3: 動的化（ACF連携）
            ↓
-Phase 4: テンプレート組み立て・確認
+Phase 4: 確認・修正・納品
 ```
 
-詳細は [`docs/PROJECT_PLAN.md`](docs/PROJECT_PLAN.md) を参照。
+詳細は [新規案件スタートガイド](docs/QUICK_START.md) を参照。
+
+---
+
+## 📋 よく使うコマンド
+
+```bash
+# 開発環境
+docker-compose up -d      # 起動
+docker-compose down       # 停止
+
+# SCSS
+npm run watch:css         # 監視モード（開発中）
+npm run build:css         # ビルド（納品前）
+
+# Git
+git add .
+git commit -m "✨ feat: 機能追加"
+git push origin main
+```
+
+---
 
 ## 📄 ライセンス
 

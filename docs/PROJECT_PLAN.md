@@ -1,33 +1,26 @@
 # Figma → WordPress プロジェクト計画メモ
 
 > 最終更新: 2024年11月30日
-> ステータス: **クラシックテーマへの移行待ち** 🔄
+> ステータス: **クラシックテーマ準備完了** ✅
 
 ---
 
-## 🚨 次回やること（引き継ぎ）
+## ✅ 完了した作業
 
-### 決定事項（変更）
-1. **テーマタイプ**: ブロックテーマ → **クラシックテーマに変更**
-2. **SCSSコンパイル**: Cursor実行 → **npm（watch/build）で自動実行に変更**
-
-### 次回の作業内容
+### クラシックテーマへの移行（完了）
 1. **ルールファイルの修正**
-   - `wordpress-theme.mdc` をクラシックテーマ用に書き換え
-   - `figma-integration.mdc` のテンプレート記述を `.php` に修正
+   - `wordpress-theme.mdc` をクラシックテーマ用に書き換え ✅
+   - `figma-integration.mdc` のテンプレート記述を `.php` に修正 ✅
 
 2. **ディレクトリ構造の変更**
-   - `templates/*.html` → ルート直下の `*.php`（front-page.php, single-service.php 等）
-   - `parts/*.html` → `header.php`, `footer.php`, `template-parts/*.php`
-   - `patterns/` → 削除（クラシックテーマでは不要）
+   - `templates/*.html` → ルート直下の `*.php` に変換 ✅
+   - `parts/*.html` → `header.php`, `footer.php` に変換 ✅
+   - `template-parts/` フォルダ作成 ✅
+   - `patterns/`, `templates/`, `parts/`, `theme.json` 削除 ✅
 
-3. **PROJECT_PLAN.md の更新**
-   - ディレクトリ構造をクラシックテーマ用に修正
-   - 決定事項テーブルを更新
-
-4. **wp-theme/内のファイル修正**
-   - 既存の `.html` ファイルを `.php` に変換
-   - functions.php を調整
+3. **functions.php の調整**
+   - ナビゲーションメニュー登録追加 ✅
+   - ブロックパターン関連削除 ✅
 
 ---
 
@@ -53,7 +46,7 @@
 - **AI（Cursor）**: コーディング支援、SCSS/jQueryの実装
 
 ### 技術スタック
-- WordPress（**クラシックテーマ**）← 変更
+- WordPress（**クラシックテーマ**）
 - **SCSS**（CSSプリプロセッサ）→ **npm で自動コンパイル**
 - **jQuery**（JavaScript）
 - **ACF**（Advanced Custom Fields）
@@ -105,7 +98,7 @@ Phase 4: 動的化 & テンプレート組み立て
 
 ---
 
-## 📁 ディレクトリ構造（クラシックテーマ版・変更予定）
+## 📁 ディレクトリ構造（クラシックテーマ版）
 
 ```
 wp-theme/
@@ -137,8 +130,8 @@ wp-theme/
 │   ├── custom-taxonomies.php
 │   └── acf-fields.php
 ├── template-parts/            # 再利用パーツ
+│   ├── card-post.php
 │   ├── card-service.php
-│   ├── card-news.php
 │   └── section-cta.php
 ├── header.php                 # ヘッダー
 ├── footer.php                 # フッター
@@ -206,8 +199,8 @@ FigmaのURL: https://www.figma.com/design/xxxxx/FileName?node-id=123-456
 | ファイル名 | 説明 | 状態 |
 |-----------|------|------|
 | `general.mdc` | プロジェクト全般のルール | ✅ OK |
-| `wordpress-theme.mdc` | WordPressテーマ開発ルール | ⚠️ **要修正**（クラシックテーマ用に） |
-| `figma-integration.mdc` | Figma MCP連携ルール | ⚠️ **要修正**（.php記述に） |
+| `wordpress-theme.mdc` | WordPressテーマ開発ルール | ✅ OK |
+| `figma-integration.mdc` | Figma MCP連携ルール | ✅ OK |
 | `coding-standards.mdc` | コーディング規約 | ✅ OK |
 | `responsive-design.mdc` | レスポンシブ実装ルール | ✅ OK |
 | `wordpress-advanced.mdc` | CPT、ACF、動的要素 | ✅ OK |
@@ -225,11 +218,12 @@ FigmaのURL: https://www.figma.com/design/xxxxx/FileName?node-id=123-456
 - [x] SCSS基本ファイル作成
 - [x] package.json作成（SCSSビルド用）
 - [x] inc/フォルダ作成（CPT, タクソノミー）
+- [x] **クラシックテーマへの移行完了**
 
-### 未完了 / 次回対応
-- [ ] **クラシックテーマへの移行**（ルール・ファイル構造）
+### 未完了 / 今後の作業
 - [ ] Figma MCP設定（APIトークン取得後）
 - [ ] npm install
+- [ ] Figmaデザイン受け取り後、実装開始
 
 ---
 

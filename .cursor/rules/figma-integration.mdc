@@ -18,9 +18,9 @@ alwaysApply: true
 
 ## ⛔ 最重要：全体渡しは絶対NG
 
-```
+\`\`\`
 🚨 警告：Figmaの「ファイル全体」や「ページ全体」を一気に読み込ませてはいけません
-```
+\`\`\`
 
 ### なぜダメなのか？（3つの罠）
 
@@ -32,13 +32,13 @@ alwaysApply: true
 
 ### 正しいアプローチ
 
-```
+\`\`\`
 ❌ NG: 「このFigmaファイル全体を見てコーディングして」
 ❌ NG: 「このページ全体を読み込んで」
 
 ✅ OK: 「このスタイルガイド（Node ID: xxx）から変数を抽出して」
 ✅ OK: 「このヘッダーセクション（Node ID: yyy）を実装して」
-```
+\`\`\`
 
 ---
 
@@ -46,11 +46,11 @@ alwaysApply: true
 
 ### 基本方針：2段階アプローチ
 
-```
+\`\`\`
 【フェーズ1】脳を作る = スタイルガイドだけを渡す（最初に1回）
     ↓
 【フェーズ2】手を作る = セクションごとに渡す（都度）
-```
+\`\`\`
 
 ### フェーズ1：スタイルガイドだけを渡す
 
@@ -58,13 +58,13 @@ alwaysApply: true
 
 1. Figmaの「Style Guide」「Typography」「Colors」フレームのNode IDを取得
 2. そこだけをMCPで読み込ませる
-3. `_variables.scss` を生成させる
+3. \`_variables.scss\` を生成させる
 
 → これで「全体把握」の代わりになる
 
 ### フェーズ2：セクションごとに渡す
 
-**目的**: 高精度なHTML/CSSを書かせる
+**目的**: 高精度なPHP/SCSSを書かせる
 
 1. ヘッダー、フッター、メインビジュアル、Aboutセクション…と分ける
 2. 各フレームのNode IDを指定して読み込ませる
@@ -75,15 +75,15 @@ alwaysApply: true
 ## 📍 Node ID の取得方法
 
 ### 方法1: FigmaのURLから取得
-```
+\`\`\`
 https://www.figma.com/design/xxxxx/FileName?node-id=123-456
                                             ↑ これがNode ID
-```
+\`\`\`
 
 ### 方法2: Figmaで「リンクをコピー」
 1. 対象のフレーム/レイヤーを選択
 2. 右クリック → 「リンクをコピー」
-3. URLの `node-id` パラメータを確認
+3. URLの \`node-id\` パラメータを確認
 
 ### Node ID指定が最強な理由
 - ファイル検索より確実で高速
@@ -96,14 +96,14 @@ https://www.figma.com/design/xxxxx/FileName?node-id=123-456
 
 ### 画像は手動書き出しが必要
 
-```
+\`\`\`
 🖼️ MCPは画像の「情報（URL、配置）」は取得できますが、
    jpg/pngファイルを自動ダウンロードする機能はありません。
-```
+\`\`\`
 
 **対策:**
 - 画像アセットはFigmaから手動で書き出し
-- `assets/images/` に配置
+- \`assets/images/\` に配置
 - AIには「画像はプレースホルダーで仮置き」と指示
 
 ### きれいなFigmaデータが前提
@@ -112,7 +112,7 @@ MCPはデータを正直に読み取ります。Figma上で：
 - グループ化が適当
 - Auto Layout未使用で手動配置
 
-→ 生成されるHTML/CSSも汚くなる
+→ 生成されるPHP/SCSSも汚くなる
 
 **対策:**
 - デザイナーにAuto Layout使用を依頼
@@ -125,28 +125,28 @@ MCPはデータを正直に読み取ります。Figma上で：
 ### フェーズ1: スタイルガイド読み込み（最初に1回だけ）
 
 #### 1-1. SCSS変数の生成（最重要）
-```markdown
+\`\`\`markdown
 @Figma
-ツール `get_node` を使用して、Node ID: [スタイルガイドのID] のデータを取得してください。
+ツール \`get_node\` を使用して、Node ID: [スタイルガイドのID] のデータを取得してください。
 
-このデータから以下を抽出し、`_variables.scss` を作成してください：
+このデータから以下を抽出し、\`_variables.scss\` を作成してください：
 
 **抽出項目:**
-- カラーパレット（$color-primary, $color-secondary, $color-text 等）
+- カラーパレット(\$color-primary, \$color-secondary, \$color-text 等)
 - フォントファミリー
-- フォントサイズ（$font-size-base, $font-size-lg 等）
-- 基本スペーシング（$spacing-sm, $spacing-md 等）
+- フォントサイズ(\$font-size-base, \$font-size-lg 等)
+- 基本スペーシング(\$spacing-sm, \$spacing-md 等)
 
 **命名規則:**
-- 色: $color-{用途}
-- フォント: $font-{プロパティ}-{サイズ}
-- 余白: $spacing-{サイズ}
+- 色: \$color-{用途}
+- フォント: \$font-{プロパティ}-{サイズ}
+- 余白: \$spacing-{サイズ}
 
 出力はコードのみでお願いします。
-```
+\`\`\`
 
 #### 1-2. ページ構成の確認（構造のみ）
-```markdown
+\`\`\`markdown
 @Figma
 このプロジェクトのファイル構造を解析してください。
 
@@ -158,57 +158,73 @@ MCPはデータを正直に読み取ります。Figma上で：
 3. 共通コンポーネント（ヘッダー、フッター、ボタン等）の有無
 
 出力は簡潔なリスト形式でお願いします。
-```
+\`\`\`
 
 ---
 
 ### フェーズ2: セクション実装（繰り返し）
 
 #### 2-1. ヘッダー/フッター実装
-```markdown
+\`\`\`markdown
 @Figma
-ツール `get_node` を使用して、Node ID: [ヘッダーのID] のデータを取得してください。
+ツール \`get_node\` を使用して、Node ID: [ヘッダーのID] のデータを取得してください。
 
 取得したAuto Layoutの構造とスタイル情報を元に、以下を実装してください：
 
 **ファイル:**
-1. HTML: `parts/header.html`（WordPressテンプレートパーツ）
-2. SCSS: `assets/scss/sections/_header.scss`
+1. PHP: \`header.php\`（クラシックテーマのヘッダー）
+2. SCSS: \`assets/scss/sections/_header.scss\`
 
 **要件:**
-- さきほど定義した `_variables.scss` の変数を必ず使用（ハードコード禁止）
-- ロゴはトップページへのリンク
-- ナビゲーションは `<!-- wp:navigation -->` を使用
+- さきほど定義した \`_variables.scss\` の変数を必ず使用（ハードコード禁止）
+- ロゴはトップページへのリンク（\`home_url()\`）
+- ナビゲーションは \`wp_nav_menu()\` を使用
 - SP時はハンバーガーメニュー化
 - BEM記法を厳守（.block__element--modifier）
 - レスポンシブ対応（SP/PC）を含める
-```
+\`\`\`
 
 #### 2-2. 汎用セクション実装
-```markdown
+\`\`\`markdown
 @Figma
-ツール `get_node` を使用して、Node ID: [セクションのID] のデータを取得してください。
+ツール \`get_node\` を使用して、Node ID: [セクションのID] のデータを取得してください。
 
 取得した情報を元に、以下を実装してください：
 
 **ファイル:**
-1. HTML: `patterns/[セクション名].html`（WordPressブロックパターン形式）
-2. SCSS: `assets/scss/sections/_[セクション名].scss`
+1. PHP: \`template-parts/section-[セクション名].php\`（テンプレートパーツ）
+2. SCSS: \`assets/scss/sections/_[セクション名].scss\`
 
 **要件:**
-- `_variables.scss` の変数を使用（色、フォント、余白すべて）
+- \`_variables.scss\` の変数を使用（色、フォント、余白すべて）
 - BEM記法を使用（.block__element--modifier）
 - レスポンシブ対応（SP/PC）を含める
-- 画像はプレースホルダー（`https://placehold.jp/WIDTHxHEIGHT.png`）を使用
+- 画像はプレースホルダー（\`https://placehold.jp/WIDTHxHEIGHT.png\`）を使用
 - セマンティックなHTML構造（section, h2, ul/li 等）
-```
+\`\`\`
+
+#### 2-3. ページテンプレート作成
+\`\`\`markdown
+@Figma
+ツール \`get_node\` を使用して、Node ID: [ページのID] のデータを取得してください。
+
+このページ用のテンプレートを作成してください。
+
+**ファイル:**
+\`front-page.php\`（または対象のテンプレート）
+
+**要件:**
+- \`get_header()\` と \`get_footer()\` を使用
+- セクションは \`get_template_part()\` で読み込み
+- メインコンテンツは \`<main class="site-main">\` で囲む
+\`\`\`
 
 ---
 
 ### フェーズ3: 動的化（ACF連携）
 
 #### 3-1. ACFフィールド設計
-```markdown
+\`\`\`markdown
 この [セクション名] のデザインを見てください。
 
 動的に変更すべき箇所を特定し、以下を出力してください：
@@ -220,10 +236,10 @@ MCPはデータを正直に読み取ります。Figma上で：
 - 出力時は必ず esc_html(), esc_url(), esc_attr() を使用
 - 繰り返し要素は have_rows() を使用
 - セキュリティを最優先
-```
+\`\`\`
 
 #### 3-2. ループ処理の実装
-```markdown
+\`\`\`markdown
 この [セクション名] を動的に変更します。
 
 **要件:**
@@ -233,32 +249,32 @@ MCPはデータを正直に読み取ります。Figma上で：
 4. 出力時は必ずエスケープ処理（esc_html, esc_url, esc_attr）
 
 セキュリティを最優先してください。
-```
+\`\`\`
 
 ---
 
 ### フェーズ4: 品質チェック
 
 #### 4-1. コードレビュー
-```markdown
+\`\`\`markdown
 今回作成したファイルについて、以下をチェックしてください：
 
 チェック項目：
 - [ ] BEM命名規則は正しいか？
 - [ ] 色・フォントサイズのハードコードはないか？
-- [ ] `_variables.scss` の変数が正しく使われているか？
+- [ ] \`_variables.scss\` の変数が正しく使われているか？
 - [ ] レスポンシブ対応は適切か？
 - [ ] エスケープ処理は漏れていないか？
 - [ ] 不要なIDセレクタは使われていないか？
 
 問題がある場合は修正案を提示してください。
-```
+\`\`\`
 
 ---
 
 ## 🔄 ワークフロー全体像
 
-```
+\`\`\`
 【Step 0】Node ID を準備
 ├── スタイルガイドのNode ID
 ├── 各セクションのNode ID
@@ -277,7 +293,7 @@ MCPはデータを正直に読み取ります。Figma上で：
 【Step 3】セクション実装（API取得: セクションごと）
 ├── 各セクションのNode IDを指定
 ├── _variables.scss の変数を使ってコーディング
-├── HTML + SCSS をセットで作成
+├── PHP + SCSS をセットで作成
 ├── 画像は手動書き出し or プレースホルダー
 └── 次のセクションへ
 
@@ -290,7 +306,7 @@ MCPはデータを正直に読み取ります。Figma上で：
 ├── AIによるコードレビュー
 ├── 人間による目視確認（AIは微細なズレが苦手）
 └── レスポンシブテスト
-```
+\`\`\`
 
 ---
 
@@ -298,7 +314,7 @@ MCPはデータを正直に読み取ります。Figma上で：
 
 最初にスタイルガイドから取得したら、以下をメモとして残す：
 
-```markdown
+\`\`\`markdown
 ## デザインメモ（変数定義の根拠）
 
 ### カラーパレット
@@ -323,18 +339,18 @@ MCPはデータを正直に読み取ります。Figma上で：
 5. News - Node ID: 123-460
 6. Contact - Node ID: 123-461
 7. Footer - Node ID: 123-462
-```
+\`\`\`
 
 ---
 
 ## 実装優先順位
 
-1. スタイルガイド読み込み → `_variables.scss` 生成
-2. グローバルスタイル（theme.json + _base.scss）
-3. ヘッダー/フッター（parts/）
+1. スタイルガイド読み込み → \`_variables.scss\` 生成
+2. グローバルスタイル（_base.scss）
+3. ヘッダー/フッター（header.php, footer.php）
 4. 共通コンポーネント（components/）
-5. セクション/パターン（patterns/）
-6. 個別テンプレート（templates/）
+5. セクション/パーツ（template-parts/）
+6. 個別テンプレート（front-page.php 等）
 7. 動的化（ACF連携）
 
 ---
