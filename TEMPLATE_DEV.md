@@ -60,6 +60,10 @@
   - components/_card.scss
   - sections/_header.scss
   - sections/_footer.scss
+- [x] Cursor最適化（2024-12）
+  - general.mdc 更新（AIの役割明確化）
+  - SCSSファイルにAI向けコメント追加
+  - docs/PROMPTS.md 作成（コピペ用プロンプト集）
 
 ---
 
