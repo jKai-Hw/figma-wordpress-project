@@ -1,7 +1,7 @@
 ---
 description: Git運用ルール（ブランチ、コミット、PR）
 globs: "**/*"
-alwaysApply: true
+alwaysApply: false
 ---
 
 # Git運用ガイドライン
