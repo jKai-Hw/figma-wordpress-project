@@ -73,8 +73,17 @@ figma-wordpress-project/
 ├── docs/
 │   ├── PROJECT_PLAN.md     # プロジェクト計画（テンプレート）
 │   ├── QUICK_START.md      # 新規案件スタートガイド ⭐
+│   ├── PROMPTS.md          # プロンプト集
 │   └── DESIGN_NOTES.md     # デザインメモ（案件固有）🗑️
-├── wp-theme/               # WordPressテーマ
+├── figma-data/             # MCPデータ保存（案件固有）🗑️
+│   ├── README.md           # 使い方説明
+│   ├── _template.md        # MDテンプレート
+│   └── images/             # 参考画像（悪いFigma時）
+├── static-preview/         # HTMLプレビュー（案件固有）🗑️
+│   ├── README.md           # 使い方説明
+│   ├── sections/           # セクション別HTML
+│   └── css/                # ビルド済みCSS
+├── wp-theme/               # WordPressテーマ【納品対象】
 │   ├── assets/
 │   │   ├── scss/           # SCSSファイル
 │   │   ├── css/            # コンパイル後のCSS
@@ -180,12 +189,19 @@ open http://localhost:8080
            ↓
 Phase 1: スタイルガイドから変数生成（MCP）
            ↓
-Phase 2: セクションごとに実装（MCP）
+Phase 2: 全セクションHTML化（MCP → SCSS → HTML）
+         ※PHPはまだ作らない
            ↓
-Phase 3: 動的化（ACF連携）
+Phase 3: 全セクションPHP化（HTML → PHP）
            ↓
-Phase 4: 確認・修正・納品
+Phase 4: ACF動的化
+           ↓
+Phase 5: テスト・修正
+           ↓
+Phase 6: 納品
 ```
+
+**ポイント:** 全セクションをHTML化してから、まとめてPHP化する
 
 詳細は [新規案件スタートガイド](docs/QUICK_START.md) を参照。
 

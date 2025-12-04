@@ -143,6 +143,7 @@ Figma MCP → JSON保存 → 品質チェック → HTML + SCSS → PHP（2段�
 - [x] `.cursor/rules/general.mdc` 更新
   - [x] 標準フロー更新
   - [x] ディレクトリ構造更新
+  - [x] AIの行動指針追加（figma-integration.mdcと統一）
 - [x] `docs/QUICK_START.md` 更新
   - [x] STEP 5/6の構成変更（HTML化 → PHP化）
 - [x] `PROGRESS.md` 更新
@@ -166,6 +167,7 @@ Figma MCP → JSON保存 → 品質チェック → HTML + SCSS → PHP（2段�
 | `7f87699` | 「全セクションHTML化→まとめてPHP化」に変更 |
 | `acc1db5` | AIの行動指針追加（品質チェック必須、PHP化はPhase3） |
 | (未push) | PROGRESS.md更新（新しいチャット用セクション追加）|
+| (未push) | general.mdcとfigma-integration.mdcのワークフロー矛盾を解消 |
 
 ### 🔄 続きの作業をする場合
 
@@ -181,7 +183,9 @@ TEMPLATE_DEV.mdの「現在進行中の改善（2024-12）」を見て、
 ### ❓ 残っている検討事項
 
 - [ ] 実際の案件でこのフローを試して、問題があれば改善
-- [ ] AIがルールを守らない場合のプロンプトの工夫
+- [x] AIがルールを守らない場合のプロンプトの工夫
+  - → general.mdcとfigma-integration.mdcの矛盾を解消
+  - → 両ファイルで「品質チェック後に待つ → 続けてと言われたら一括作成」に統一
 - [ ] PROGRESS.mdの使いやすさの確認
 
 ### 🔄 新ワークフロー詳細

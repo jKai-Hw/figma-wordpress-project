@@ -66,23 +66,35 @@ alwaysApply: true
 【Phase 1】スタイルガイド → _variables.scss
 
 【Phase 2】全セクションHTML化（セクションごとに繰り返し）
-  1. Figmaからデータ取得（Node ID指定）→ figma-data/[name].json 保存
-  2. 品質チェック → 良い/悪いを報告
-  3. 【良い】MD整理 / 【悪い】数値抽出 + 画像
-  4. SCSS作成（変数使用）→ style.scss に @use 追加
-  5. SCSSビルド
-  6. HTML作成 → static-preview/sections/
-  
-  → 全セクション完了後、ブラウザで全体確認
+   1. MCPでデータ取得 → figma-data/[name].json 保存
+   2. AIが品質チェック → 報告
+      ├─【良い】→ MD整理
+      └─【悪い】→ 数値抽出 + 画像保存
+   3. SCSS作成 → wp-theme/assets/scss/sections/_[name].scss
+   4. npm run build:css
+   5. HTML作成 → static-preview/sections/[name].html
+   
+   → 全セクション完了後、ブラウザで全体確認
 
 【Phase 3】全セクションPHP化（まとめて実行）
-  → wp-theme/template-parts/
+   → wp-theme/template-parts/section-[name].php
 
 【Phase 4】ACF動的化
 ```
 
-※直接PHPを生成せず、HTML経由で確認してからPHP化する
-※全セクションをHTML化してから、まとめてPHP化する
+**ポイント:** 全セクションをHTML化してから、まとめてPHP化する
+
+### 🛑 AIの行動指針
+
+**Phase 2（HTML化）での動き方:**
+
+1. データ取得 → JSON保存 → 品質チェック → **報告して待つ**
+2. ユーザーが「続けて」と言ったら → SCSS + ビルド + HTML を一括作成
+
+**注意:**
+- 品質チェックは飛ばさない
+- 報告後、ユーザーの指示を待つ
+- Phase 2ではPHPを作成しない（Phase 3まで待つ）
 
 ---
 
