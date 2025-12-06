@@ -18,6 +18,85 @@ alwaysApply: false
 
 ---
 
+## 💰 トークン節約・AI最適化
+
+AIのコンテキスト制限（トークン）を節約し、推論精度を上げるためのルール。
+
+### 1. リファレンスの活用
+スタイルや変数を実装する際は、まず以下の **[開発リファレンス]** セクションを確認すること。
+ここにプロジェクトの変数一覧、Mixin、共通クラスがまとめられている。
+
+### 2. ファイル読み込み範囲の制限
+巨大なファイルを編集する際は、`Read` ツールの `start_line` / `limit` (または `end_line`) を活用し、**必要な箇所だけ** を読み込むこと。
+
+- ❌ NG: `style.css` 全体を読む
+- ✅ OK: `style.css` のヘッダー部分（100行目付近）だけ読む
+
+### 3. コミットの粒度
+「1つの変更」ごとにこまめにコミットし、Gitの状態をクリーンに保つ。これにより `git diff` の出力が減り、現状把握のトークン消費が抑えられる。
+
+---
+
+## 📚 開発リファレンス (Context Map)
+
+AI参照用の軽量ドキュメント。スタイリングやPHP実装時はまずここを参照。
+
+### 🎨 SCSS変数 (`_variables.scss`)
+
+#### Colors
+| 変数名 | 値 | 用途 |
+|---|---|---|
+| `$color-primary` | `#8EB03B` | メインカラー（緑） |
+| `$color-accent` | `#F7B560` | アクセントカラー（オレンジ） |
+| `$color-text` | `#333333` | 基本テキスト |
+| `$color-text-light` | `#666666` | 薄いテキスト |
+| `$color-light` | `#FAFAF8` | 背景色（薄いベージュ） |
+| `$color-white` | `#FFFFFF` | 白 |
+| `$color-border` | `#E0E0E0` | ボーダー色 |
+
+#### Breakpoints
+| 変数名 | 値 | デバイス |
+|---|---|---|
+| `$breakpoint-sm` | `576px` | スマホ横など |
+| `$breakpoint-md` | `768px` | タブレット・スマホ |
+| `$breakpoint-lg` | `992px` | PC小 |
+| `$breakpoint-xl` | `1200px` | PC大 |
+
+#### Spacing
+| 変数名 | 値 |
+|---|---|
+| `$spacing-xs` | `8px` |
+| `$spacing-sm` | `16px` |
+| `$spacing-md` | `24px` |
+| `$spacing-lg` | `40px` |
+| `$spacing-xl` | `60px` |
+| `$spacing-2xl` | `80px` |
+| `$spacing-3xl` | `100px` |
+
+### 🛠 SCSS Mixins (`_mixins.scss`)
+
+- **`@include mq($breakpoint)`**: min-width (PC firstの逆、SP first用)
+- **`@include mq-max($breakpoint)`**: max-width (PCデザインをSPに適用する時など)
+- **`@include container`**: 中央寄せコンテナ
+- **`@include flex-center`**: 上下左右中央寄せ
+
+### 📂 ディレクトリ構造（主要部分のみ）
+
+```
+wp-theme/
+├── assets/
+│   ├── scss/
+│   │   ├── _variables.scss
+│   │   ├── _mixins.scss
+│   │   ├── components/ (_button.scss, _card.scss)
+│   │   └── sections/ (_hero.scss, _about.scss, ...)
+│   └── img/
+├── template-parts/ (予定)
+└── front-page.php (予定)
+```
+
+---
+
 ## 📐 インデント・フォーマット
 
 | 項目 | 設定 |
@@ -54,40 +133,6 @@ alwaysApply: false
 .js-slider { }
 ```
 
-### SCSS変数名
-```scss
-// カラー: $color-{用途}
-$color-primary: #3B82F6;
-
-// フォント: $font-{プロパティ}-{サイズ}
-$font-size-base: 1rem;
-
-// スペーシング: $spacing-{サイズ}
-$spacing-md: 1.5rem;
-
-// ブレークポイント: $breakpoint-{サイズ}
-$breakpoint-md: 768px;
-```
-
-### PHP関数名・変数名
-```php
-// 関数: snake_case（プレフィックス付き）
-function theme_get_featured_posts() { }
-
-// 変数: snake_case
-$post_id = get_the_ID();
-```
-
-### JavaScript
-```javascript
-// 変数・関数: camelCase
-const menuToggle = document.querySelector('.js-menu-toggle');
-function initSlider() { }
-
-// jQueryオブジェクト: $接頭辞
-const $slider = $('.js-slider');
-```
-
 ---
 
 ## 💬 コメントルール
@@ -102,9 +147,6 @@ const $slider = $('.js-slider');
 .component {
   width: calc(100% - 40px); // 左右20pxずつの余白を引く
 }
-
-// TODO: あとで対応
-// FIXME: 修正が必要
 ```
 
 ### PHP
@@ -124,32 +166,6 @@ function theme_get_thumbnail_url( $post_id ) {
 
 ## 📱 レスポンシブ設計
 
-### ブレークポイント
-```scss
-$breakpoint-sm: 640px;   // 小型タブレット
-$breakpoint-md: 768px;   // タブレット
-$breakpoint-lg: 1024px;  // PC
-$breakpoint-xl: 1280px;  // 大画面
-```
-
-### メディアクエリMixin
-```scss
-// SP（〜767px）
-@mixin sp {
-  @media (max-width: #{$breakpoint-md - 1px}) { @content; }
-}
-
-// タブレット以上（768px〜）
-@mixin tablet-up {
-  @media (min-width: $breakpoint-md) { @content; }
-}
-
-// PC（1024px〜）
-@mixin pc {
-  @media (min-width: $breakpoint-lg) { @content; }
-}
-```
-
 ### モバイルファーストの書き方
 ```scss
 // ✅ 正しい書き方
@@ -162,46 +178,6 @@ $breakpoint-xl: 1280px;  // 大画面
   
   @include pc {
     padding: $spacing-xl;
-  }
-}
-```
-
-### グリッドレイアウト例
-```scss
-.card-grid {
-  display: grid;
-  gap: $spacing-md;
-  grid-template-columns: 1fr;  // SP: 1カラム
-  
-  @include tablet-up {
-    grid-template-columns: repeat(2, 1fr);  // タブレット: 2カラム
-  }
-  
-  @include pc {
-    grid-template-columns: repeat(3, 1fr);  // PC: 3カラム
-  }
-}
-```
-
----
-
-## 🖼️ 画像のレスポンシブ対応
-
-```scss
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-// アスペクト比維持
-.image-container {
-  aspect-ratio: 16 / 9;
-  
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
   }
 }
 ```

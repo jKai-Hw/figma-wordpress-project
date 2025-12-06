@@ -12,10 +12,13 @@
     "lint:js:fix": "eslint 'wp-theme/assets/js/**/*.js' --fix",
     "lint": "npm run lint:scss && npm run lint:js",
     "format": "prettier --write 'wp-theme/assets/**/*.{scss,js}' '*.{json,md}' 'docs/**/*.md'",
-    "format:check": "prettier --check 'wp-theme/assets/**/*.{scss,js}' '*.{json,md}' 'docs/**/*.md'"
+    "format:check": "prettier --check 'wp-theme/assets/**/*.{scss,js}' '*.{json,md}' 'docs/**/*.md'",
+    "prepare": "husky"
   },
   "devDependencies": {
     "eslint": "^8.57.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "prettier": "^3.2.5",
     "sass": "^1.69.0",
     "stylelint": "^16.2.1",
@@ -26,6 +29,15 @@
     "figma",
     "scss"
   ],
+  "lint-staged": {
+    "*.{scss,css}": [
+      "stylelint --fix",
+      "prettier --write"
+    ],
+    "*.{js,json,md}": [
+      "prettier --write"
+    ]
+  },
   "author": "",
   "license": "GPL-2.0-or-later"
 }
