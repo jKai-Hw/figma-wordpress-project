@@ -18,11 +18,11 @@
 // FIGMA: デザインのカラーパレットに合わせて変更
 
 // メインカラー
-$color-primary: #8eb03b; // FIGMA: プライマリカラー
-$color-primary-hover: #7a9932; // FIGMA: プライマリのホバー色
-$color-secondary: #10b981; // FIGMA: セカンダリカラー
-$color-secondary-hover: #059669;
-$color-accent: #f7b560; // FIGMA: アクセントカラー
+$color-primary: #000000; // [必須] FIGMA: プライマリカラー
+$color-primary-hover: #333333; // [必須] FIGMA: プライマリのホバー色
+$color-secondary: #000000; // [必須] FIGMA: セカンダリカラー
+$color-secondary-hover: #333333;
+$color-accent: #000000; // [必須] FIGMA: アクセントカラー
 
 // ベースカラー
 $color-dark: #333333; // FIGMA: 最も暗い色
