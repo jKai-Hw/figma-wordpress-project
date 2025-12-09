@@ -29,15 +29,21 @@ open http://localhost:8080
 ├── figma-data/        # MCPデータ保存
 ├── static-preview/    # HTMLプレビュー
 └── wp-theme/          # WordPressテーマ【納品対象】
+    ├── assets/
+    │   ├── scss/      # Sassファイル
+    │   └── js/
+    │       ├── modules/ # JSモジュール
+    │       └── main.js  # エントリーポイント
+    └── inc/           # 機能ファイル
 ```
 
 ## 📚 ドキュメント
 
-| ファイル | 内容 |
-|----------|------|
-| [docs/QUICK_START.md](docs/QUICK_START.md) | 新規案件スタートガイド |
-| [docs/PROMPTS.md](docs/PROMPTS.md) | プロンプト集 |
-| [docs/CHECKLISTS.md](docs/CHECKLISTS.md) | 品質チェック・Git運用 |
+| ファイル                                     | 内容                         |
+| -------------------------------------------- | ---------------------------- |
+| [docs/QUICK_START.md](docs/QUICK_START.md)   | 新規案件スタートガイド       |
+| [docs/PROMPTS.md](docs/PROMPTS.md)           | プロンプト集                 |
+| [docs/CHECKLISTS.md](docs/CHECKLISTS.md)     | 品質チェック・Git運用        |
 | [docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md) | プロジェクト計画テンプレート |
 
 ## 🔧 コマンド

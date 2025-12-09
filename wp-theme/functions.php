@@ -96,10 +96,32 @@ function figma_theme_scripts() {
 
   // カスタムスクリプト（jQuery依存）
   if ( file_exists( get_template_directory() . '/assets/js/main.js' ) ) {
+    
+    // モジュールの読み込み
+    $modules = array(
+      'mobile-menu',
+      'smooth-scroll',
+      'accordion',
+      'modal'
+    );
+
+    foreach ( $modules as $module ) {
+      if ( file_exists( get_template_directory() . "/assets/js/modules/{$module}.js" ) ) {
+        wp_enqueue_script(
+          "figma-theme-{$module}",
+          get_template_directory_uri() . "/assets/js/modules/{$module}.js",
+          array( 'jquery' ),
+          $theme_version,
+          true
+        );
+      }
+    }
+
+    // メインスクリプト（モジュール依存）
     wp_enqueue_script(
       'figma-theme-main',
       get_template_directory_uri() . '/assets/js/main.js',
-      array( 'jquery' ),
+      array( 'jquery' ), // 本来はモジュールにも依存するが、読み込み順制御で対応
       $theme_version,
       true
     );
