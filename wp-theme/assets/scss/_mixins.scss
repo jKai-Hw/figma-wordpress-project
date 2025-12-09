@@ -1,7 +1,17 @@
 // ==========================================================================
 // ミックスイン（テンプレート）
 // ==========================================================================
-@use 'variables' as *;
+@use "variables" as *;
+@use "sass:math";
+
+// --------------------------------------------------------------------------
+// ユーティリティ関数
+// --------------------------------------------------------------------------
+
+// px to rem 自動計算
+@function rem($pixels) {
+  @return math.div($pixels, 16) * 1rem;
+}
 
 // --------------------------------------------------------------------------
 // メディアクエリ
@@ -73,7 +83,7 @@
   margin-right: auto;
   padding-left: $spacing-sm;
   padding-right: $spacing-sm;
-  
+
   @include pc {
     padding-left: $spacing-md;
     padding-right: $spacing-md;
@@ -120,11 +130,11 @@
   transition: all $transition-base;
   cursor: pointer;
   text-decoration: none;
-  
+
   &:hover {
     opacity: 0.9;
   }
-  
+
   &:focus {
     outline: 2px solid $color-primary;
     outline-offset: 2px;
@@ -147,7 +157,7 @@
   background-color: transparent;
   color: $color-primary;
   border: 2px solid $color-primary;
-  
+
   &:hover {
     background-color: $color-primary;
     color: $color-white;
@@ -164,10 +174,10 @@
 }
 
 // シャドウ
-@mixin shadow($level: 'base') {
-  @if $level == 'sm' {
+@mixin shadow($level: "base") {
+  @if $level == "sm" {
     box-shadow: $shadow-sm;
-  } @else if $level == 'lg' {
+  } @else if $level == "lg" {
     box-shadow: $shadow-lg;
   } @else {
     box-shadow: $shadow-base;
@@ -186,4 +196,3 @@
   white-space: nowrap;
   border: 0;
 }
-

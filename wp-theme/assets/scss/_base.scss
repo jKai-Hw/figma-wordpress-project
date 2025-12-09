@@ -4,7 +4,7 @@
 // リセット + 基本要素のスタイル
 // Figmaデザインに合わせて調整してください
 
-@use 'variables' as *;
+@use "variables" as *;
 
 // --------------------------------------------------------------------------
 // リセット
@@ -44,7 +44,12 @@ body {
 // --------------------------------------------------------------------------
 // タイポグラフィ
 // --------------------------------------------------------------------------
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: $font-family-heading;
   font-weight: $font-weight-bold;
   line-height: $line-height-tight;
@@ -97,7 +102,8 @@ img {
 // --------------------------------------------------------------------------
 // リスト
 // --------------------------------------------------------------------------
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
 
@@ -109,13 +115,24 @@ input,
 select,
 textarea {
   font-family: inherit;
-  font-size: inherit;
+  font-size: 100%;
+  line-height: inherit;
+  color: inherit;
 }
 
 button {
+  padding: 0;
   cursor: pointer;
-  background: none;
+  background-color: transparent;
   border: none;
+  appearance: none;
+}
+
+input,
+textarea,
+select {
+  appearance: none;
+  border-radius: 0;
 }
 
 // --------------------------------------------------------------------------
