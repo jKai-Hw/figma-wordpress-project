@@ -41,6 +41,12 @@ alwaysApply: true
    - SCSSをビルドしてエラーがないか確認
    - 不要なconsole.log / var_dumpは入れない
 
+### 5. 統合プレビュー（index.html）の更新
+   - ユーザーから「プレビュー更新」「index.htmlに反映して」と指示があった場合：
+     - `static-preview/sections/` 内の最新HTMLを読み取る
+     - `static-preview/index.html` の対応するID（例: `#preview-header`）の中身を置換する
+     - 手動コピペの手間を省き、常に全体を確認できる状態を保つ
+
 ### 🙋 AIがユーザーに確認すること
 
 - デザインに曖昧な部分がある

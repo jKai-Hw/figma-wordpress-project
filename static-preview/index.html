@@ -3,106 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>トップページ - Preview</title>
-  <!-- Google Fonts（案件に合わせて変更） -->
+  <title>統合プレビュー（index.html）</title>
+  
+  <!-- Google Fonts（wp-theme/functions.php と合わせる） -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-  <!-- ビルド済みCSS -->
-  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- CSS読み込み（Sassビルド結果） -->
+  <link rel="stylesheet" href="../wp-theme/assets/css/style.css">
 </head>
-<body>
+<body id="top">
+
   <!-- ============================================
-       このファイルはプレビュー用のサンプルです。
-       案件では、各セクションのHTMLをここに組み込むか、
-       sections/ 内の個別ファイルで確認してください。
+       【使い方】
+       各セクションのHTML（sections/xxx.html の中身）を
+       以下の対応するエリアにコピペして統合確認します。
        ============================================ -->
 
-  <!-- ヘッダー -->
-  <header class="header">
-    <div class="header__inner">
-      <a href="#" class="header__logo">
-        <img src="https://placehold.co/150x40?text=LOGO" alt="サイト名">
-      </a>
-      <nav class="header__nav">
-        <ul class="header__nav-list">
-          <li class="header__nav-item"><a href="#">ホーム</a></li>
-          <li class="header__nav-item"><a href="#">サービス</a></li>
-          <li class="header__nav-item"><a href="#">会社概要</a></li>
-          <li class="header__nav-item"><a href="#">お問い合わせ</a></li>
-        </ul>
-      </nav>
-      <button class="header__hamburger js-hamburger" aria-label="メニューを開く">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-  </header>
+  <!-- Header -->
+  <div id="preview-header">
+    <!-- ここにヘッダーHTMLを貼り付け -->
+    <header class="l-header" style="background: #eee; padding: 20px; text-align: center;">
+      <p>Header Area (ここにHTMLをコピペ)</p>
+    </header>
+  </div>
 
   <main>
-    <!-- ヒーローセクション -->
-    <section class="hero">
-      <div class="hero__inner">
-        <h1 class="hero__title">メインキャッチコピー</h1>
-        <p class="hero__text">サブテキストやサービスの説明文がここに入ります。</p>
-        <a href="#" class="hero__button button button--primary">詳しく見る</a>
-      </div>
-      <div class="hero__bg">
-        <img src="https://placehold.co/1920x800?text=Hero+Image" alt="">
-      </div>
-    </section>
+    <!-- Hero Section -->
+    <div id="preview-hero">
+      <!-- ここにヒーローセクションHTMLを貼り付け -->
+      <section class="p-hero" style="min-height: 400px; background: #f5f5f5; display: flex; align-items: center; justify-content: center;">
+        <p>Hero Section Area</p>
+      </section>
+    </div>
 
-    <!-- Aboutセクション -->
-    <section class="about">
-      <div class="about__inner">
-        <h2 class="about__title section-title">私たちについて</h2>
-        <div class="about__content">
-          <div class="about__image">
-            <img src="https://placehold.co/600x400?text=About+Image" alt="">
-          </div>
-          <div class="about__text">
-            <p>会社や サービスの紹介文がここに入ります。Figmaのデザインに合わせて内容を調整してください。</p>
-            <a href="#" class="about__link">もっと見る →</a>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- About Section -->
+    <div id="preview-about">
+      <!-- ここにAboutセクションHTMLを貼り付け -->
+    </div>
 
-    <!-- CTAセクション -->
-    <section class="cta">
-      <div class="cta__inner">
-        <h2 class="cta__title">お気軽にお問い合わせください</h2>
-        <p class="cta__text">ご質問・ご相談はこちらから</p>
-        <a href="#" class="cta__button button button--secondary">お問い合わせ</a>
-      </div>
-    </section>
+    <!-- Service Section -->
+    <div id="preview-service">
+      <!-- ここにServiceセクションHTMLを貼り付け -->
+    </div>
+
+    <!-- Contact/CTA Section -->
+    <div id="preview-contact">
+      <!-- ここにContactセクションHTMLを貼り付け -->
+    </div>
   </main>
 
-  <!-- フッター -->
-  <footer class="footer">
-    <div class="footer__inner">
-      <div class="footer__logo">
-        <img src="https://placehold.co/150x40?text=LOGO" alt="サイト名">
-      </div>
-      <nav class="footer__nav">
-        <ul class="footer__nav-list">
-          <li><a href="#">ホーム</a></li>
-          <li><a href="#">サービス</a></li>
-          <li><a href="#">会社概要</a></li>
-          <li><a href="#">プライバシーポリシー</a></li>
-        </ul>
-      </nav>
-      <p class="footer__copyright">&copy; 2024 サイト名. All rights reserved.</p>
-    </div>
-  </footer>
+  <!-- Footer -->
+  <div id="preview-footer">
+    <!-- ここにフッターHTMLを貼り付け -->
+    <footer class="l-footer" style="background: #333; color: #fff; padding: 20px; text-align: center;">
+      <p>Footer Area</p>
+    </footer>
+  </div>
 
-  <!-- jQuery（必要に応じて） -->
+  <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="js/preview.js"></script>
+  
+  <!-- メインスクリプト（モジュール含む） -->
+  <!-- ※ 実際のWordPress環境とは読み込み方が異なりますが、動作確認用として -->
+  <script src="../wp-theme/assets/js/modules/mobile-menu.js"></script>
+  <script src="../wp-theme/assets/js/modules/smooth-scroll.js"></script>
+  <script src="../wp-theme/assets/js/modules/accordion.js"></script>
+  <script src="../wp-theme/assets/js/modules/modal.js"></script>
+  <script src="../wp-theme/assets/js/main.js"></script>
+
 </body>
 </html>
-
-
-
-
